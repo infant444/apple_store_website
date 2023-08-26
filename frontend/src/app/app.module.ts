@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './Component/page/header/header.component';
-import {MatIconModule} from '@angular/material/icon'
+import {MatIconModule} from '@angular/material/icon';
+import { BeforeLoginComponent } from './Component/page/before-login/before-login.component'
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    BeforeLoginComponent
   ],
   imports: [
     BrowserModule,
