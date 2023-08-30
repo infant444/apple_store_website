@@ -1,15 +1,23 @@
 import { model,Schema,Types } from "mongoose";
 
+export interface image{
+    img:any;
+}
 
+export const imageSchema= new Schema<image>({
+    img:{data:Buffer,contentType:String},
+    
+})
 export interface ProductItem{
     name:string;
-    img:Buffer[];
+    img:image[];
     price:number;
     // Spec?:string[];
     color:string[];
     fav:boolean;
     model:string;
     rating:number;
+    qty:number;
 } 
 
 export const productSchema= new Schema<ProductItem>({
@@ -18,7 +26,9 @@ export const productSchema= new Schema<ProductItem>({
     color:{type:[String],required:true},
     model:{type:String,required:true},
     rating:{type:Number,default:0},
-    img:{type:[Buffer],contentType:String}
+    img:{type:[imageSchema],required:true},
+    qty:{type:Number,default:1}
+
 
 },
 {

@@ -13,7 +13,8 @@ export class AddProductComponent implements OnInit {
 
   addproduct!:FormGroup;
   isSubmited=false;
- x:any;
+  images: any;
+
   constructor(private formbuilder:FormBuilder,private adminService:AdminService){
 
   }
@@ -24,41 +25,59 @@ export class AddProductComponent implements OnInit {
       price:[0,Validators.required],
       color:['',Validators.required],
       model:['',Validators.required],
+      qty:['',Validators.required],
     })
   }
   get Fc(){
     return this.addproduct.controls;
   }
 
-submit(event:any){
-this.isSubmited=true;
-if(this.addproduct.invalid){
-  return;
-}
-const fc=this.addproduct.value;
-console.log(event.target.files);
+
+  change(event:any){
+
+    console.log(event.target.files);
     if(event.target.files.length>0){
-      for (const file of event.target.files) {
-        console.log(file);
-        let  img =new FormData();
-        img.append('images', file);
-      }
+this.images=event.target.files;
 
     }
-var color=fc.color.split(',');
-const x:ProductItem={
-  id: '',
-  color: color,
-  name: fc.name,
-  price: fc.price,
-  fav: false,
-  model: fc.model,
-  rating: 0,
-  img:''
-  // img:Image,
+  }
+submit(){
+this.isSubmited=true;
+// if(this.addproduct.invalid){
+//   return;
+// }
+const fc=this.addproduct.value;
+const formdata =new FormData();
+
+for(let x of this.images){
+  console.log(x.webkitRelativePath);
+  formdata.append('file',x);
 }
-console.log(x);
-this.adminService.addproduct(x).subscribe((product)=>{
+console.log(formdata.getAll('file'))
+formdata.append('name',fc.name);
+
+
+
+var color=fc.color.split(',');
+formdata.append('color',color);
+formdata.append('price',fc.price);
+formdata.append('model',fc.model);
+formdata.append('qty',fc.qty);
+
+// const x:ProductItem={
+//   id: '',
+//   color: color,
+//   name: fc.name,
+//   price: fc.price,
+//   fav: false,
+//   model: fc.model,
+//   rating: 0,
+//   // img:formdata
+//   img:formdata.getAll('file'),
+// }
+
+// console.log(x);
+this.adminService.addproduct(formdata).subscribe((product)=>{
   console.log(product);
 })
 }

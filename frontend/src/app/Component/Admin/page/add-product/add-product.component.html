@@ -1,13 +1,13 @@
 <div class="container">
   <div class="content">
-    <form [formGroup]="addproduct" (ngSubmit)="submit($event)">
+    <form [formGroup]="addproduct" (ngSubmit)="submit()">
       <div class="con">
         <label>Name</label>
         <input type="text" formControlName="name">
       </div>
       <div class="con">
         <label>Images</label>
-        <input type="file" multiple formControlName="image" accept="image/*" >
+        <input type="file" multiple formControlName="image" accept="image/*" (change)="change($event)" >
       </div>
       <div class="con">
         <label>colors</label>
@@ -20,6 +20,10 @@
       <div class="con">
         <label>model</label>
         <input type="text" formControlName="model">
+      </div>
+      <div class="con">
+        <label>Quantity</label>
+        <input type="number" formControlName="qty">
       </div>
       <button type="submit">Add</button>
     </form>

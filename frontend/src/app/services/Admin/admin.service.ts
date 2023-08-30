@@ -11,7 +11,7 @@ export class AdminService {
 
   constructor(private http:HttpClient) { }
 
-  addproduct(x:ProductItem):Observable<ProductItem>{
+  addproduct(x:any):Observable<ProductItem>{
     return this.http.post<ProductItem>(ADD_PRODUCT,x);
   }
 }
